@@ -1,0 +1,185 @@
+{{ define "main" }}
+
+<script type="text/javascript">
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var start = new Date("Mar 1, 2020 00:00:00").getTime();
+    var solve = new Date("May 30, 2020 00:00:00").getTime();
+    var distance = now - start;
+    var ddistance = solve - start;    
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("time").innerHTML = days + "days " + hours + "hours "
+    + minutes + "minutes " + seconds + "seconds ";
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+
+</script>
+
+
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="img-fluid">
+        <h1>{{ .Params.title }}</h1>
+        <a href="{{ .Params.link | relURL }}" class="btn btn-primary">
+          {{ .Params.linktext }}
+          <!-- <i class="fas fa-arrow-right"></i> -->
+        </a>        
+      </div>
+
+      <div class="col-lg-6 mx-auto">
+        <div class="py-5 embed-responsive embed-responsive-16by9">
+           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/GgmMr3ooy9s" allowfullscreen></iframe> -->
+        </div> 
+      </div>      
+    </div>
+  </div>
+</section>
+
+{{ with .Params.service }}
+{{ if .enable }}
+{{ range $i,$p := .service_item }}
+{{if modBool $i 2}}
+<section class="section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 order-2 order-md-1">
+        <h2 class="section-title">{{ .title | markdownify }}</h2>
+        <p>{{ .content | markdownify }}</p>
+        {{ if .quote }}       
+        <div class="pb-4 row align-items-center">
+          <div class="col-10">
+            <small>{{ .quote | markdownify }}</small>
+          </div>
+          <div class="col-2">
+            <span class="py-2 fas fa-quote-left fa-2x"></span>
+            <img src="{{ .quota | relURL }}" alt="" class="img-fluid">
+            <span class="py-2 fas fa-quote-right fa-2x"></span>            
+          </div>
+        </div>
+        {{ end }}        
+        {{ if .button.enable }}
+        {{ with .button }}
+        <a href="{{ .link | relURL }}" title="{{ .label }}" class="btn btn-primary">
+          {{ .label }} <i class="fas fa-arrow-right"></i>
+        </a>
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="col-md-6 order-1 order-md-2 mb-4 mb-md-0">
+        <div {{if gt (len .images) 1}} class="slider" {{end}}>
+          {{ range .images }}
+          <img src="{{ . | relURL }}" alt="" class="img-fluid rounded-lg">
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ else }}
+<section class="section bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div {{if gt (len .images) 1}}class="slider" {{end}}>
+          {{ range .images }}
+          <img src="{{ . | relURL }}" alt="" class="img-fluid rounded-lg">
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2 class="section-title">{{ .title | markdownify }}</h2>
+        <p>{{ .content | markdownify }}</p>
+        {{ if .quote }}        
+        <div class="pb-4 row align-items-center">
+          <div class="col-10">
+            <small>{{ .quote | markdownify }}</small>
+          </div>
+          <div class="col-2">
+            <span class="py-2 fas fa-quote-left fa-2x"></span>
+            <img src="{{ .quota | relURL }}" alt="" class="img-fluid">
+            <span class="py-2 fas fa-quote-right fa-2x"></span>            
+          </div>
+        </div>
+        {{ end }}
+        {{ if .button.enable }}
+        {{ with .button }}
+        <a href="{{ .link | relURL }}" title="{{ .label }}" class="btn btn-primary">
+          {{ .label }} <i class="fas fa-arrow-right"></i>
+        </a>
+        {{ end }}
+        {{ end }}
+      </div>      
+    </div>
+  </div>
+</section>
+
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ with .Params.burn }}
+<div class="jumbotron-amazon">
+  <section class="section container">
+    <h2 class="text-white display-4">{{ .title }}</h2>
+    <h3 class="text-white">{{ .subtitle }}</h3>    
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <small class="text-white">Time it takes for the dialectical method to come up with a solution to Covid</small>
+        <h2 class="text-success">90 days</h2>
+      </div>
+      <div class="col-md-6 mb-4 mb-md-0">
+        <small class="text-white">Time it takes for the scientfic method to come up with a solution to Covid</small>
+        <h2 class="text-danger" id="time"></h2>
+      </div>
+      <p class="text-white pt-4">{{ .content }}</p>
+    </div>
+    <div class="card p-4">
+      <div class="row align-items-center">
+        <div class="col-10">
+          <p>{{ .quote | markdownify }}</p>
+        </div>
+        <div class="col-2">
+          <img src="{{ .quota | relURL }}" alt="" class="img-fluid">
+        </div>
+      </div>    
+    </div>
+  </section>
+</div>
+{{ end }}
+
+{{ with .Params.feedback }}
+<section class="section container text-center">
+  <h2 class="mb-4">{{ .title }}</h1>
+  <div class="row">
+    {{ range $i,$p := .item }}
+    <div class="col-md-6">        
+      <div class="card shadow-lg p-4">
+        <div class="row">
+          <div class="col-4 mx-auto">
+            <img src="{{ .image | absURL }}" alt="{{ .user }}" class="img-fluid rounded mb-4">
+          </div>
+          <div class="col-8 mx-auto">
+            <div class="content pb-2">{{.content}}</div>
+            <a href="{{ .link | absURL }} ">
+              <small>{{.user}}</small>
+            </a>
+          </div>                      
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ end }}

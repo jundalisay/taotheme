@@ -1,0 +1,25 @@
+{{ with .Site.Data.team }}
+  {{ if .enable }}
+  <section class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="text-center py-4">
+          <h2>{{ .title }}</h2>
+        </div>
+      </div>
+      {{ range .members }}
+      <div class="col-lg-3 col-md-6 text-center">
+        <img src="{{ .image | absURL }}" alt="team-member" class="rounded-circle" style="height: 100px; width: 100px;">
+        <h5 class="pt-4">{{ .name }}</h5>
+        <small>{{ .designation }}</small>
+        <br>
+<!--         <i><a href="{{ .medium | absURL }}"><i class="fab fa-medium"></i></a></i> -->
+        <i><a href="{{ .linkedin | absURL }}"><i class="fab fa-linkedin"></i></a></i>
+<!--           <li><a href="{{ .instagram | absURL }}"><i class="fa fa-instagram"></i></a></li> -->
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}

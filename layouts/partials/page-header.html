@@ -1,0 +1,13 @@
+<section class="section pb-0">
+  <div class="container text-center">
+    <h1>{{ .Title | markdownify }}</h1>
+    {{ with .Params.subtitle }}
+    <h2>{{ . | markdownify }}</h2>
+    {{ end }}
+    {{ with .Params.date }}
+    <small>{{ .Format "January 2, 2006" }}</small>
+    {{ end }}    
+    <br>
+    <div class="fb-like" data-href="{{ .Permalink }}" data-width="" data-layout="button" data-action="like" data-size="small" data-share="true"></div>    
+  </div>
+</section>

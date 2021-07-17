@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+
+{{ with .Params.news }}
+<section class="section">
+  <div class="container card-columns">
+      {{ range .item }}      
+        <div class="card shadow p-4">        
+          <small class="text-primary">{{ .date }}</small>
+          <h3>{{ .title | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      {{ end }}
+  </div>
+</section>
+{{ end }}
+
+
+<!-- call to action -->
+
+<!-- /call to action -->
+
+{{ end }}
