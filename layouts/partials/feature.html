@@ -1,0 +1,32 @@
+<style type="text/css">
+  .feature {
+    background: #000 url("{{ .bannerfeat }}") center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+</style>
+
+<section class="section feature my-5">
+  <div class="container has-text-centered my-5">
+    <div class="card p-3" style="opacity: 0.9">
+      <h2 class="title is-2">{{ .title | markdownify }}</h2>
+      <h3 class="subtitle is-5">{{ .subtitle | markdownify }}</h3> 
+    </div>
+  </div>
+  <div class="columns is-multiline is-flex-wrap-wrap is-justify-content-center">    
+    {{ range .feature_item }}
+      <div class="column is-2 my-5">
+        <div class="card has-text-centered card-equal-height p-4">
+          <!-- <a href="{{ .link }}"> -->
+            <i class="zoom-xs mb-3">{{.icon | markdownify }}</i>
+          
+          <h4 class="subtitle is-5 mt-4">{{ .name | title }}</h4>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+    {{ end }}
+    <img src="{{ .image }}" class="is-rounded my-5">      
+  </div>
+</section>
