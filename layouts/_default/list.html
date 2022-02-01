@@ -79,9 +79,11 @@
         </div>
 
         <div class="column is-6 has-text-centered">
-          <div class="py-5 is-inline-block">
-             <iframe class="embed-responsive-16by9" width="100%" height="auto" src="https://www.youtube.com/embed/{{ .Params.youtube }}" allowfullscreen></iframe>
-          </div> 
+          <div class="has-text-centered label py-5">
+            <figure class="is-inline-block embed-responsive embed-responsive-16by9">      
+              <iframe width="100%" height="auto" class="embed-responsive-item" src="https://www.youtube.com/embed/{{ .Params.youtube }}" allowfullscreen></iframe>
+            </figure>
+          </div>
         </div>      
       </div>
     </div>
